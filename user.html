@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>user details</title>
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/minty/bootstrap.min.css">
+        <style>
+            body { background-color: #fafafa; }
+            .disabled {
+                            pointer-events: none;
+                        }
+            .hide {display:none!important}
+            
+            .cc{
+              text-align: center;
+            }     
+            img {
+                border-radius: 50%;
+              }
+            h2 {
+              text-align: center;
+              font-size:30px;
+              margin: 25px; 
+            }
+            table {
+              text-align: center;
+              font-size:18px;
+              height: 200px;
+              margin: 10px;
+            }
+            td {
+                border: 0.5px dashed grey;
+                text-align: center; 
+                vertical-align: middle;
+            }
+            .scrollingTable {
+                width: 10em;
+                overflow-y: auto;
+            }
+    
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="pagination.js?v3"></script>
+</head>
+<body>
+    <div id="user" class="cc">
+    <h2>User Page</h2>
+    <table id="results" class="table table-striped">
+        <tr>
+          <th>Picture</th>
+          <th>Full name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Age</th>
+        </tr>
+    <script>
+        var baseUrl = (window.location).href; // You can also use document.URL
+        var koopId = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+        fetch("https://randomuser.me/api/?username="+koopId)
+        .then((res)=>res.json())
+        .then((data)=>{
+          console.log(data)
+          data.results.map((user)=>{
+            $("#results").append(`
+            
+            <tr>
+              <td><img src="${user.picture.thumbnail}" alt="Avatar"></td>
+              <td>
+                ${user.name.first[0]}
+                ${user.name.last[0]}</td>
+              <td> <a href="https://mail.google.com/mail/">${user.email}</a></td>
+              <td>${user.gender}</td>
+              <td>${user.dob.age}</td>
+            </tr>
+            
+        `)})
+        })
+      </script>
+      </table>
+    </div>
+
+</body>
+</html>
